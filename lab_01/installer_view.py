@@ -20,28 +20,28 @@ class Ui_Installer(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.nextBtn.setFont(font)
-        self.nextBtn.setObjectName("nextBtn")
+        self.nextBtn.setObjectName('nextBtn')
         self.label = QtWidgets.QLabel(Installer)
         self.label.setGeometry(QtCore.QRect(50, 40, 531, 71))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.label.setFont(font)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label")
+        self.label.setObjectName('label')
         self.cancelBtn = QtWidgets.QPushButton(Installer)
         self.cancelBtn.setGeometry(QtCore.QRect(360, 180, 131, 61))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.cancelBtn.setFont(font)
-        self.cancelBtn.setObjectName("cancelBtn")
+        self.cancelBtn.setObjectName('cancelBtn')
 
         self.retranslateUi(Installer)
         QtCore.QMetaObject.connectSlotsByName(Installer)
 
     def retranslateUi(self, Installer):
         _translate = QtCore.QCoreApplication.translate
-        Installer.setWindowTitle(_translate("Installer", "Dialog"))
-        self.nextBtn.setText(_translate("Installer", "Далее"))
-        self.label.setText(_translate("Installer", "Приветствуем в установщике замечательной программы.\n"
-"Для установки нажмите \"Далее\", для отмены \"Выход\""))
-        self.cancelBtn.setText(_translate("Installer", "Выход"))
+        Installer.setWindowTitle(_translate('Installer', 'Dialog'))
+        self.nextBtn.setText(_translate('Installer', 'Установить'))
+        self.label.setText(_translate('Installer', 'Приветствуем в установщике замечательной программы.\n'
+                                                   'Вы можете установить программу или выйти'))
+        self.cancelBtn.setText(_translate('Installer', 'Выход'))

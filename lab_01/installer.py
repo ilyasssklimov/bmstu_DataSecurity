@@ -3,8 +3,8 @@ import shutil
 import subprocess
 import sys
 from PyQt5 import QtWidgets
-from program.config import KEY_FILE, get_serial_number
 from installer_view import Ui_Installer
+from program_code import get_program_code
 
 
 class Installer(QtWidgets.QDialog, Ui_Installer):
@@ -16,25 +16,31 @@ class Installer(QtWidgets.QDialog, Ui_Installer):
         self.cancelBtn.clicked.connect(self.close)
 
     def __install_program(self):
-        self.__save_serial_number()
+        self.__create_program_files()
+        self.close()
 
-        install_command = f'pyinstaller --onefile --noconsole --clean --add-data "{KEY_FILE};." program/program.py'
-        subprocess.call(install_command)
+        subprocess.call(f'pip install pyinstaller')
+        subprocess.call('pyinstaller --onefile --clean program.py')
 
-        shutil.copyfile(r'dist\program.exe', r'..\program.exe')
+        shutil.copyfile('./dist/program.exe', './program.exe')
         self.__delete_tmp_files()
+        QtWidgets.QMessageBox.about(self, 'Успех', 'Вы установили программу!')
 
-    @staticmethod
-    def __save_serial_number():
-        with open(KEY_FILE, 'w') as f:
-            f.write(get_serial_number())
+    def __create_program_files(self):
+        with open('program.py', 'w', encoding='utf-8') as f:
+            f.write(get_program_code(self.get_serial_number()))
 
     @staticmethod
     def __delete_tmp_files():
         shutil.rmtree('build')
         shutil.rmtree('dist')
         os.remove('program.spec')
-        os.remove(KEY_FILE)
+        os.remove('program.py')
+
+    @staticmethod
+    def get_serial_number():
+        save_command = 'wmic bios get serialnumber'
+        return os.popen(save_command).read().split()[1]
 
 
 def main():
