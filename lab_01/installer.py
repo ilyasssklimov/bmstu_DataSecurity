@@ -18,7 +18,7 @@ class Installer(QtWidgets.QDialog, Ui_Installer):
     def __install_program(self):
         self.__save_serial_number()
 
-        install_command = f'pyinstaller --onefile --clean --add-data "{KEY_FILE};." program/program.py'
+        install_command = f'pyinstaller --onefile --noconsole --clean --add-data "{KEY_FILE};." program/program.py'
         subprocess.call(install_command)
 
         shutil.copyfile(r'dist\program.exe', r'..\program.exe')
