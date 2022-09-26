@@ -1,5 +1,9 @@
+from enigma import Enigma, CharAlphabet, ByteAlphabet
+
+
 def main():
-    print('Hello, world!')
+    alphabet = CharAlphabet()
+    enigma = Enigma(alphabet)
 
 
 if __name__ == '__main__':
