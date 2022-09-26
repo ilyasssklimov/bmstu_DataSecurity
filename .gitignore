@@ -5,7 +5,4 @@ __pycache__
 dist
 build
 *.exe
-*.txt
 .idea
-!requirements.txt
-!lab_02/data/*.txt
