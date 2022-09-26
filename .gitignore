@@ -8,3 +8,4 @@ build
 *.txt
 .idea
 !requirements.txt
+!lab_02/data/*.txt
