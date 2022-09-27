@@ -1,5 +1,6 @@
 import abc
 import os
+import re
 from collections import deque
 import config as cfg
 
@@ -13,6 +14,7 @@ class EnigmaAlphabet(metaclass=abc.ABCMeta):
         self._reflector: deque = ...
 
         self._positions: tuple[int, int, int] = ...
+        self._rotate_triggers: tuple[...] = ...
 
         self._init_alphabet()
         self._init_rotors()
@@ -33,6 +35,12 @@ class EnigmaAlphabet(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def _init_positions(self): ...
 
+    @abc.abstractmethod
+    def convert_result(self, result): ...
+
+    @abc.abstractmethod
+    def convert_target(self, target): ...
+
     def get_alphabet(self) -> deque:
         return self._alphabet
 
@@ -44,6 +52,9 @@ class EnigmaAlphabet(metaclass=abc.ABCMeta):
 
     def get_positions(self) -> tuple[int, int, int]:
         return self._positions
+
+    def get_rotate_triggers(self) -> tuple[...]:
+        return self._rotate_triggers
 
     def get_first_element(self):
         return self._first_element
@@ -65,6 +76,13 @@ class CharAlphabet(EnigmaAlphabet):
 
     def _init_positions(self):
         self._positions = (16, 20, 2)
+        self._rotate_triggers = ('R', 'F', 'W')
+
+    def convert_result(self, result: list[str]):
+        return ''.join(result)
+
+    def convert_target(self, target: str):
+        return re.sub('[^a-zA-Z]+', '', target).upper()
 
 
 class ByteAlphabet(EnigmaAlphabet):
@@ -78,4 +96,10 @@ class ByteAlphabet(EnigmaAlphabet):
         pass
 
     def _init_positions(self):
+        pass
+
+    def convert_result(self, result):
+        pass
+
+    def convert_target(self, result):
         pass
