@@ -10,25 +10,31 @@ class Rotor:
         self.__map: deque = alphabet.get_rotor(number)
         self.__position: int = alphabet.get_positions()[number]
 
-    def __get_index(self, element):
+    def __get_alphabet_index(self, element) -> int:
         return self.__initial_alphabet.index(element)
 
-    def __get_element(self, index):
-        return self.__initial_alphabet[index]
+    def __real_position(self):
+        return self.__get_alphabet_index(self.__alphabet[self.__position])
+
+    def __get_real_index(self, index: int) -> int:
+        return self.__map.index(self.__alphabet[index])
 
     def rotate(self):
         self.__alphabet.rotate(-1)
 
-    def get_current_element(self) -> int:
-        return self.__initial_alphabet[self.__position]
+    def get_element(self, index: int):
+        return self.__initial_alphabet[index]
+
+    def get_current_element(self):
+        return self.__alphabet[self.__position]
 
     def forward(self, element, previous_element):
-        diff: int = self.__position - self.__get_index(previous_element)
-        upd_index: int = (self.__get_index(element) + diff) % len(self.__alphabet)
-        print(self.__map)
-        print(self.__alphabet)
-        print(upd_index)
-        return self.__map[upd_index]
+        diff: int = self.__real_position() - self.__get_alphabet_index(previous_element)
+        upd_index: int = self.__get_alphabet_index(element) + diff
+        return self.__map[upd_index % len(self.__alphabet)]
 
-    def backward(self):
-        pass
+    def backward(self, element_index, next_element):
+        diff: int = self.__real_position() - self.__get_alphabet_index(next_element)
+        upd_index: int = self.__get_real_index(element_index) - diff
+        print(element_index, self.__get_real_index(element_index), upd_index)
+        return upd_index % len(self.__alphabet)
