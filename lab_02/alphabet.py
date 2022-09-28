@@ -87,19 +87,24 @@ class CharAlphabet(EnigmaAlphabet):
 
 class ByteAlphabet(EnigmaAlphabet):
     def _init_alphabet(self):
-        pass
+        with open(os.path.join(cfg.BYTE_DIR, 'alphabet.txt')) as f:
+            self._alphabet = deque(map(int, f.read().split()))
 
     def _init_rotors(self):
-        pass
+        for i in range(3):
+            with open(os.path.join(cfg.BYTE_DIR, f'rotor_{i}.txt')) as f:
+                self.__setattr__(f'_rotor_{i}', deque(map(int, f.read().split())))
 
     def _init_reflector(self):
-        pass
+        with open(os.path.join(cfg.BYTE_DIR, 'reflector.txt')) as f:
+            self._reflector = deque(map(int, f.read().split()))
 
     def _init_positions(self):
-        pass
+        self._positions = (229, 10, 169)
+        self._rotate_triggers = (226, 187, 21)
 
-    def convert_result(self, result):
-        pass
+    def convert_result(self, result: list[int]) -> bytes:
+        return bytes(result)
 
-    def convert_target(self, result):
-        pass
+    def convert_target(self, result: bytes) -> list[int]:
+        return list(result)
