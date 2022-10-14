@@ -1,2 +1,4 @@
-## Защита информации
-7-й семестр - лабораторные работы по защите информации
+## DEPRECATED…
+
+## [Новый репозиторий](https://github.com/ilyasssklimov/bmstu_all/tree/sem_07/sem_07/DataSecurity)
+
